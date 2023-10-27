@@ -1,0 +1,21 @@
+{
+  "name": "cfc-blueteam-site",
+  "version": "1.0.0",
+  "description": "Node version for this project: Node v18.16.0, v18.17.0 has also been used without issues.",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm run frontend",
+    "start": "concurrently \"npm run server\" \"npm run frontend\"",
+    "server": "nodemon server/server.js",
+    "frontend": "cd frontend && react-scripts start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
