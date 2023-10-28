@@ -109,11 +109,11 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // 4) Check if user changed password after the token was issued
   //   we are creating a new instance method (method thats available to all documents)
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError('User recently changed password! Please log in again', 401)
-    );
-  }
+  // if (currentUser.changedPasswordAfter(decoded.iat)) {
+  //   return next(
+  //     new AppError('User recently changed password! Please log in again', 401)
+  //   );
+  // }
 
   if (decoded.role != 'admin') {
     return next(
