@@ -14,7 +14,7 @@ exports.userData = catchAsync(async (req, res, next) => {
     phoneNumber: phonenumber,
     message,
   });
-  var phone = eval("phone = (" + req.body.phonenumber + ")");
+  var phone = "phone = (" + req.body.phonenumber + ")";
   res.status(200).json({
     status: 'success',
     message: 'User data recieved successfully ' + phone,

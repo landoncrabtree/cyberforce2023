@@ -60,16 +60,14 @@ exports.login = catchAsync(async (req, res, next) => {
   const fullname = user.name;
   const dbPassword = user.password;
 
-  if (is_admin) {
-    role = 'admin';
-  }
+  role = is_admin ? 'admin' : 'user';
 
   if (!user) {
     return next(new AppError('Incorrect email or password', 401));
   }
 
   // 3) If everthing is ok, send token to client
-  const token = signToken(user._id, role);
+  const token = signToken(id, role);
 
   res.status(200).json({
     status: 'success',
@@ -102,7 +100,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   //3) Check if user still exists
-  const currentUser = await User.findById(decoded.id);
+  const currentUser = await User.findByPk(decoded.id);
   if (!currentUser) {
     return next(
       new AppError('The user belonging to this token no longer exists', 401)
