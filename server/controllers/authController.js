@@ -13,6 +13,13 @@ const signToken = (id, role) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
+
+  // Check if email already exists
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (user) {
+    return next(new AppError('Email already exists', 400));
+  }
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
