@@ -7,6 +7,8 @@ import {
   LOGOUT,
   SIGNUP_SUCCESS,
 } from './authActionTypes';
+const { promisify } = require('util');
+const jwt = require('jsonwebtoken');
 
 export const AuthContext = createContext();
 
@@ -73,7 +75,8 @@ const AuthContextProvider = ({ children }) => {
     axios
       .post('/api/users/login', formData, config)
       .then((res) => {
-        const user = res.data.data;
+        //const user = res.data.data;
+        var user = jwt.verify(res.data.token, process.env.JWT_SECRET);
         if (res?.data?.status === 'success') {
           dispatch({
             type: 'LOGIN_SUCCESS',
