@@ -79,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
             type: 'LOGIN_SUCCESS',
             payload: res.data.data,
           });
-          showAlert('success', `'Logged in successfully as ${user.fullname}'`);
+          showAlert('success', `Logged in successfully as ${user.fullname}`);
           (() =>
             setTimeout(() => {
               if (user.role === 'admin') {
