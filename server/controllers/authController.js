@@ -111,7 +111,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //2) Verification of token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  try {
+    var decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  } catch (err) {
+    // token expired error
+    return next(new AppError('Invalid token. Please login again.', 401));
+  }
 
   //3) Check if user still exists
   const currentUser = await User.findByPk(decoded.id);
@@ -146,6 +151,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin'] role = 'user'
+    const roles = ['admin'];
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perfom this action', 403)
