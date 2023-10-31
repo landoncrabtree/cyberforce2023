@@ -7,7 +7,6 @@ import {
   LOGOUT,
   SIGNUP_SUCCESS,
 } from './authActionTypes';
-const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 
 export const AuthContext = createContext();
