@@ -1,7 +1,8 @@
-const contacts = require('../models/contactModel');
+//const contacts = require('../models/contactModel');
 const catchAsync = require('../utils/catchAsync');
 const db = require('../models');
 const users = db.users;
+const contacts = db.userData;
 const AppError = require('../utils/appError');
 
 exports.admin = catchAsync(async (req, res) => {
