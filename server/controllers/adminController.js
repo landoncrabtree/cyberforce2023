@@ -12,7 +12,7 @@ exports.admin = catchAsync(async (req, res) => {
 });
 
 exports.getAllRequests = catchAsync(async (req, res) => {
-  const requests = await contacts.find();
+  const requests = await contacts.findAll();
 
   res.status(200).json({
     status: 'success',
