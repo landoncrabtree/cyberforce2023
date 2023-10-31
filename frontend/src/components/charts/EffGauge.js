@@ -10,8 +10,7 @@ function EffGauge() {
         .get('/api/users/der-data/sql')
         .then((res) => {
           const icsData = res.data.data.eff;
-
-         const invEff = icsData[(icsData.length - 1)].inv_eff
+          const invEff = icsData[(icsData.length - 1)].inv_eff
           setData(invEff);
         })
         .catch((error) => {

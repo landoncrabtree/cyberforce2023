@@ -9,10 +9,12 @@ function TempGauge() {
       axios
         .get('/api/users/der-data/sql')
         .then((res) => {
-          const icsData = res.data.data.temp;
+          // const icsData = res.data.data.temp;
+          // const batt_temp = icsData[icsData.length - 1].battery_temp;
+          // setData(batt_temp);
 
-          const batt_temp = icsData[icsData.length - 1].battery_temp;
-          setData(batt_temp);
+          const battery_temp = res.data.avg_battery_temp;
+          setData(battery_temp);
         })
         .catch((error) => {
           console.log(error);

@@ -17,7 +17,7 @@ function DerData() {
       return (
         <div className='der-wrapper'>
           <div className='title' colSpan={2}>
-            <h2> No User is logged n</h2>
+            <h2>No User is logged in</h2>
             <h2>Charts Examples</h2>
           </div>
           <div className='box'>
@@ -25,8 +25,7 @@ function DerData() {
             <EffGauge />
           </div>
           <div className='box'>
-            <h3> Battery Temperature</h3>
-
+            <h3>Battery Temperature (avg)</h3>
             <TempGauge />
           </div>
         </div>
@@ -36,7 +35,7 @@ function DerData() {
       return (
         <div className='der-wrapper'>
           <div className='title'>
-            <h2> {role} View</h2>
+            <h2>{role} View</h2>
             <h2>Charts Examples</h2>
           </div>
           <div className='box'>
@@ -44,11 +43,11 @@ function DerData() {
             <EffGauge />
           </div>
           <div className='box'>
-            <h3> Battery Temperature</h3>
+            <h3>Battery Temperature (avg)</h3>
             <TempGauge />
           </div>
           <div className='box'>
-            <h3> Pie Chart Example</h3>
+            <h3>Pie Chart Example</h3>
             <DoughnutChart />
           </div>
         </div>
@@ -58,7 +57,7 @@ function DerData() {
       return (
         <div className='der-wrapper'>
           <div className='title'>
-            <h2> {role} View</h2>
+            <h2>{role} View</h2>
             <h2>Charts Examples</h2>
           </div>
           <div className='box'>
@@ -68,7 +67,7 @@ function DerData() {
             <BarChart />
           </div>
           <div className='box'>
-            <h3> Battery Temperature</h3>
+            <h3>Battery Temperature (avg)</h3>
             <TempGauge />
           </div>
           <div className='box'>
