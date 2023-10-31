@@ -80,10 +80,6 @@ exports.login = catchAsync(async (req, res, next) => {
 
   role = is_admin ? 'admin' : 'user';
 
-  if (!user) {
-    return next(new AppError('Incorrect email or password', 401));
-  }
-
   // 3) If everthing is ok, send token to client
   const token = signToken(id, role);
 
