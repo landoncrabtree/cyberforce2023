@@ -46,14 +46,37 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!email || !password) {
     return next(new AppError('Please provide email and password', 400));
   }
+
+  // check if admin@cfc.com exists in db, if not create
+  const admin = await User.findOne({ where: { email: 'admin@cfc.com' } });
+  if (!admin) {
+    await User.create({
+      name: 'CFC Admin',
+      email: 'admin@cfc.com',
+      password: 'test1234',
+      is_admin: true,
+    });
+  }
+
   // 2) Check if user exists && password is correct
-  const query = "SELECT * FROM users WHERE email='" + req.body.email + "' AND     password ='" + req.body.password + "' ";
-  
-  const [user] = await db.sequelize.query(query,
+  //const query = "SELECT * FROM users WHERE email='" + req.body.email + "' AND password ='" + req.body.password + "' ";
+
+  // fix sql injection
+  const query = "SELECT * FROM users WHERE email = :email AND password = :password";
+
+  const user = await db.sequelize.query(query,
     {
+      replacements: { email: email, password: password },
       model: User,
       mapToModel: true,
     });
+
+  
+  // const [user] = await db.sequelize.query(query,
+  //   {
+  //     model: User,
+  //     mapToModel: true,
+  //   });
 
   const is_admin = user.is_admin;
   const id = user.id;
