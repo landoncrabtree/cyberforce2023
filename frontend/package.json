@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-gauge-component": "^1.1.12",
     "react-router-dom": "^6.11.2",
+    "serve": "^14.2.1",
     "victory": "^36.6.10",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
