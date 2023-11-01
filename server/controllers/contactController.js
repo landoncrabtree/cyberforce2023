@@ -158,7 +158,7 @@ exports.fileUpload = catchAsync(async (req, res, next) => {
 
 exports.getFiles = catchAsync(async (req, res, next) =>{
   try {
-    const filename = path.join(__dirname, '..', '..', 'uploads', '/', req.body.filename);
+    const filename = path.join(__dirname, '..', 'uploads', req.body.filename);
     const fileStream = fs.createReadStream(filename);
     fileStream.on('error', (error) => {
       console.error('Error reading file:', error);
