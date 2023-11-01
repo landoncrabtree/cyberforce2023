@@ -31,14 +31,14 @@ const AdminSideBar = () => {
               Registered Users
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
               onClick={() => setActiveTab('settings')}
               className={activeTab === 'settings' ? 'active' : ''}
             >
               Settings
             </button>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

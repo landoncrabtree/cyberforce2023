@@ -64,7 +64,7 @@ const AdminReqCards = () => {
             </div>
 
             <div className='card-footer'>
-              <button onClick={() => deleteRequest(item._id)}>Delete</button>
+              <button onClick={() => deleteRequest(item.id)}>Delete</button>
             </div>
           </div>
         </div>

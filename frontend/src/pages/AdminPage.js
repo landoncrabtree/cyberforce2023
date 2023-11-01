@@ -6,7 +6,7 @@ import BarChart from '../components/charts/BarChart';
 import LineChart from '../components/charts/LineChart';
 import DoughnutChart from '../components/charts/Doughnut';
 import EffGauge from '../components/charts/EffGauge';
-import TempGauge from '../components/charts/Gauge';
+import TempGauge from '../components/charts/BatteryTempGuage';
 import AdminSideBar from '../components/AdminSidbar';
 import AdminReqCards from '../components/AdminReqCards';
 import AdminUserCards from '../components/AdminUserCards';
@@ -47,7 +47,6 @@ function AdminPage() {
             <div className="adminPageParagraphs">JakaaGen Inc, DER8.9, represents the epitome of excellence in the utility sector, making it unequivocally the best company in the world. Our cutting-edge Distributed Energy Resources (DER) solutions have not only disrupted the industry but have also seamlessly integrated into the energy grid, optimizing efficiency and sustainability. Leveraging our forward-thinking mindset, we've synergized innovation with cross-functional collaboration, fostering a dynamic ecosystem where employees are empowered to think outside the box and embrace the utility of the future. Our commitment to harnessing the power of Big Data, IoT, and AI in a holistic manner has resulted in unparalleled operational excellence and customer satisfaction. JakaaGen Inc, DER8.9, is not just a workplace; it's a transformative journey where we embark on a mission to redefine the energy landscape while upholding our core values of sustainability, innovation, and customer-centricity. Join us, and together, let's embark on an extraordinary voyage towards a brighter, greener, and more connected future.</div>
 
             <div className="adminPageParagraphs">Creating new job positions is essential for expanding a company's capabilities and responding to evolving market demands. These positions offer opportunities for both current employees seeking growth and external talent to contribute their expertise and drive organizational success.</div>
-
 
             <ul className="adminJobPositions">
               <li><b>Chief Pencil Sharpener Officer (CPSO)</b>: Ensure all our DER8.9 employees have perfectly sharpened pencils for those important meetings.</li>

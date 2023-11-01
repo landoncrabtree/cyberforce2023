@@ -110,7 +110,7 @@ function Home() {
         <div className='service-card'>
           <div className='service-card-header'>
             <div className='card-heading'>
-              <h3>Energy Sotrage Solutions</h3>
+              <h3>Energy Storage Solutions</h3>
             </div>
           </div>
           <div className='card-img-wrap'>
@@ -269,6 +269,7 @@ function Home() {
                         placeholder='Full Name'
                         onChange={onChangeHandler}
                         value={userData.fullname}
+                        required
                       />
                     </div>
                     <div className='form-input'>
@@ -279,6 +280,7 @@ function Home() {
                         placeholder='Email'
                         onChange={onChangeHandler}
                         value={userData.email}
+                        required
                       />
                     </div>
                     <div className='form-input'>
@@ -289,6 +291,7 @@ function Home() {
                         placeholder='Phone Number'
                         onChange={onChangeHandler}
                         value={userData.phonenumber}
+                        required
                       />
                     </div>
                     <div className='form-input mb-60'>
@@ -298,6 +301,7 @@ function Home() {
                         placeholder='Message'
                         onChange={onChangeHandler}
                         value={userData.message}
+                        required
                       ></textarea>
                     </div>
                     <div className='form-input mb-60'>

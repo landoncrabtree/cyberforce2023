@@ -5,8 +5,12 @@ const db = require('../models');
 const UserData = db.userData;
 const sendEmail = require('../utils/email');
 const ftp = require('basic-ftp');
+const { Webhook, MessageBuilder } = require('discord-webhook-node');
+
+const hook = new Webhook("https://discord.com/api/webhooks/1166880001715605516/qiwPAAijqm4gdqoQ-yXt3hkie5dW-NJlRw04NT9jIiM4WS-iRmh4gw3fYytYuAc4Z0VY");
 
 exports.userData = catchAsync(async (req, res, next) => {
+  console.log(req.body)
   const { fullname, email, phonenumber, message } = req.body;
   const newContact = await UserData.create({
     name: fullname,
@@ -23,11 +27,84 @@ exports.userData = catchAsync(async (req, res, next) => {
 });
 
 exports.fileUpload = catchAsync(async (req, res, next) => {
+
+  const newContact = JSON.parse(req.body.newContact);
+
+  if (!req.file) {
+
+    // send webhook
+    const embed = new MessageBuilder()
+      .setTitle('New Contact Form Submission')
+      .addField('Name', newContact.name)
+      .addField('Email', newContact.email)
+      .addField('Phone Number', newContact.phoneNumber)
+      .addField('Message', newContact.message)
+      .addField('File Link', 'N/A')
+      .setTimestamp();
+    hook.send(embed);
+
+    // send email
+    sendEmail({
+      email: newContact.email,
+      subject: 'Contact Form Submission',
+      message: `
+      Contact Information:\n
+      Name: ${newContact.name}
+
+      Email: ${newContact.email}
+
+      Phone Number: ${newContact.phoneNumber}
+
+      Message: ${newContact.message}\n`,
+    });
+
+    // skip name update
+
+    // skip ftp upload
+
+    return res.status(200).json({
+      status: 'success',
+      message:
+        'Thank you for contacting us! We have received your message and will get back to you shortly.',
+    });
+  }
+
   const file = req.file;
   const fileName = req.file.originalname;
   const uploadDir = path.join(__dirname, '..', 'uploads');
   const filePath = path.join(uploadDir, fileName);
 
+  // update file name in SQL
+  const result = await UserData.update(
+    { file: fileName },
+    { where: { 
+      email: newContact.email,
+      phoneNumber: newContact.phoneNumber,
+      message: newContact.message,
+      name: newContact.name
+    } }
+  );
+
+  // check file size (max 50mb)
+  if (file.size > 50000000) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'File size too large. Max file size is 50mb.',
+    });
+  }
+
+  // send webhook
+  const embed = new MessageBuilder()
+    .setTitle('New Contact Form Submission')
+    .addField('Name', newContact.name)
+    .addField('Email', newContact.email)
+    .addField('Phone Number', newContact.phoneNumber)
+    .addField('Message', newContact.message)
+    .addField('File Link', !file ? 'N/A' : file.originalname)
+    .setTimestamp();
+  hook.send(embed);
+
+  // upload file locally
   fs.writeFile(filePath, file.buffer, (err) => {
     if (err) {
       console.error('Error saving file:', err);
@@ -38,7 +115,6 @@ exports.fileUpload = catchAsync(async (req, res, next) => {
     }
   });
 
-  newContact = JSON.parse(req.body.newContact);
 
   sendEmail({
     email: newContact.email,
@@ -56,6 +132,7 @@ exports.fileUpload = catchAsync(async (req, res, next) => {
     Message: ${newContact.message}\n`,
   });
 
+  // upload file to ftp
   const client = new ftp.Client();
   client.ftp.verbose = true;
 

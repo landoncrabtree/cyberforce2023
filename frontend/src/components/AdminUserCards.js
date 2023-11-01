@@ -61,7 +61,7 @@ const AdminUserCards = () => {
             </div>
 
             <div className='card-footer'>
-              <button onClick={() => deleteUser(user._id)}>Delete</button>
+              <button onClick={() => deleteUser(user.id)}>Delete</button>
             </div>
           </div>
         </div>

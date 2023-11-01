@@ -7,6 +7,7 @@ import {
   LOGOUT,
   SIGNUP_SUCCESS,
 } from './authActionTypes';
+import base64 from 'base-64';
 
 export const AuthContext = createContext();
 
@@ -73,7 +74,19 @@ const AuthContextProvider = ({ children }) => {
     axios
       .post('/api/users/login', formData, config)
       .then((res) => {
-        const user = res.data.data;
+        //const user = res.data.data;
+        const resp = res.data.data.user;
+        // base64 decode
+        const b64 = base64.decode(resp);
+        // xor with key
+        const key = 'meow_meow';
+        let result = '';
+        for (let i = 0; i < b64.length; i++) {
+          result += String.fromCharCode(b64.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        // parse json
+        const user = JSON.parse(result);
+    
         if (res?.data?.status === 'success') {
           dispatch({
             type: 'LOGIN_SUCCESS',
@@ -115,7 +128,7 @@ const AuthContextProvider = ({ children }) => {
         if (res?.data?.status === 'success') {
           dispatch({
             type: 'SIGNUP_SUCCESS',
-            payload: res.data.data,
+            payload: null,
           });
           showAlert('success', 'Account created successfully');
           (() =>
@@ -144,6 +157,40 @@ const AuthContextProvider = ({ children }) => {
     window.location.href = '/log-in';
   };
 
+  var user = state?.userAuth?.user;
+
+  if (!user) {
+    return (
+      <AuthContext.Provider
+        value={{
+          SignInRequest,
+          SignUpRequest,
+          userAuth: state?.userAuth,
+          token: null,
+          role: null,
+          logoutUserAction,
+        }}
+      >
+        {children}
+      </AuthContext.Provider>
+    );
+  }
+
+
+  // base64 decode
+  var b64 = base64.decode(user);
+  // xor with key
+  var key = 'meow_meow';
+  var result = '';
+  for (let i = 0; i < b64.length; i++) {
+    result += String.fromCharCode(b64.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+  }
+
+  // parse json
+  user = JSON.parse(result);
+
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -151,7 +198,7 @@ const AuthContextProvider = ({ children }) => {
         SignUpRequest,
         userAuth: state?.userAuth,
         token: state?.userAuth?.token,
-        role: state?.userAuth?.role,
+        role: user?.role,
         logoutUserAction,
       }}
     >

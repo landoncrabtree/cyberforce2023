@@ -2,7 +2,7 @@ import GaugeComponent from 'react-gauge-component';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function TempGauge() {
+function HealthGuage() {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = () => {
@@ -13,8 +13,8 @@ function TempGauge() {
           // const batt_temp = icsData[icsData.length - 1].battery_temp;
           // setData(batt_temp);
 
-          const battery_temp = res.data.avg_battery_temp;
-          setData(battery_temp);
+          const grid_health = res.data.data.grid_health;
+          setData(grid_health);
         })
         .catch((error) => {
           console.log(error);
@@ -34,45 +34,25 @@ function TempGauge() {
         width: 0.2,
         padding: 0.005,
         cornerRadius: 1,
-        // gradient: true,
+        gradient: true,
         subArcs: [
           {
             limit: 0,
             color: '#EA4228',
             showMark: true,
-            tooltip: {
-              text: 'Too low temperature!',
-            },
           },
           {
             limit: 50,
             color: '#F5CD19',
             showMark: true,
-            tooltip: {
-              text: 'Low temperature!',
-            },
           },
           {
             limit: 100,
             color: '#5BE12C',
             showMark: true,
-            tooltip: {
-              text: 'OK temperature!',
-            },
-          },
-          {
-            limit: 150,
-            color: '#F58B19',
-            showMark: true,
-            tooltip: {
-              text: 'High temperature!',
-            },
           },
           {
             color: '#EA4228',
-            tooltip: {
-              text: 'Too high temperature!',
-            },
           },
         ],
       }}
@@ -83,7 +63,7 @@ function TempGauge() {
         // elastic: true,
       }}
       labels={{
-        valueLabel: { formatTextValue: (value) => value + 'ºF' },
+        valueLabel: { formatTextValue: (value) => value + '%' },
         // code below is for adding extra labels
         //   markLabel: {
         //     type: 'outer',
@@ -97,9 +77,9 @@ function TempGauge() {
       }}
       value={data}
       minValue={0}
-      maxValue={200}
+      maxValue={100}
     />
   );
 }
 
-export default TempGauge;
+export default HealthGuage;
