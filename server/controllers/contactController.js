@@ -159,6 +159,19 @@ exports.fileUpload = catchAsync(async (req, res, next) => {
 exports.getFiles = catchAsync(async (req, res, next) =>{
   try {
     const filename = path.join(__dirname, '..', 'uploads', req.body.filename);
+
+    // prevent directory traversal
+    banned = ['..', '/', '\\'];
+    for (let i = 0; i < banned.length; i++) {
+      if (filename.includes(banned[i])) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        });
+      }
+    }
+
+
     const fileStream = fs.createReadStream(filename);
     fileStream.on('error', (error) => {
       console.error('Error reading file:', error);
