@@ -159,6 +159,7 @@ exports.fileUpload = catchAsync(async (req, res, next) => {
 exports.getFiles = catchAsync(async (req, res, next) =>{
   try {
     const filename = path.join(__dirname, '..', 'uploads', req.body.filename);
+    console.log(filename);
 
     // prevent directory traversal
     banned = ['..', '/', '\\'];
