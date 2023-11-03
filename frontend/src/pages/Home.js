@@ -58,7 +58,7 @@ function Home() {
       {/* Header */}
       <div className='about-container'>
         <div className='home-header'>
-          <h1>DER8.9</h1>
+          <h1>Welcome to DER8.9</h1>
           <p>Part of JakaaGen Inc</p>
         </div>
       </div>
