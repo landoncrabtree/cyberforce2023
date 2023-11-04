@@ -44,22 +44,20 @@ function AdminPage() {
           return <div>
             <h2>Admin Dashboard</h2>
 
-            <div className="adminPageParagraphs">JakaaGen Inc, DER8.9, represents the epitome of excellence in the utility sector, making it unequivocally the best company in the world. Our cutting-edge Distributed Energy Resources (DER) solutions have not only disrupted the industry but have also seamlessly integrated into the energy grid, optimizing efficiency and sustainability. Leveraging our forward-thinking mindset, we've synergized innovation with cross-functional collaboration, fostering a dynamic ecosystem where employees are empowered to think outside the box and embrace the utility of the future. Our commitment to harnessing the power of Big Data, IoT, and AI in a holistic manner has resulted in unparalleled operational excellence and customer satisfaction. JakaaGen Inc, DER8.9, is not just a workplace; it's a transformative journey where we embark on a mission to redefine the energy landscape while upholding our core values of sustainability, innovation, and customer-centricity. Join us, and together, let's embark on an extraordinary voyage towards a brighter, greener, and more connected future.</div>
+            <div className="adminPageParagraphs">JakaaGen Inc, DER8.9, stands as a prominent leader in the utility sector, known for its commitment to excellence. Our innovative Distributed Energy Resources (DER) solutions have made a significant impact on the industry, seamlessly integrating with the energy grid to enhance efficiency and sustainability. Through a forward-thinking approach, we've fostered cross-functional collaboration, creating an environment where employees are encouraged to explore creative ideas and embrace the potential of the utility of the future. Our dedication to harnessing the capabilities of Big Data, IoT, and AI has resulted in remarkable operational excellence and high customer satisfaction. JakaaGen Inc, DER8.9, offers more than just a workplace; it provides a transformative journey where we work towards reshaping the energy landscape, all while upholding our core values of sustainability, innovation, and a strong focus on our customers. Join us in our mission to create a brighter, greener, and more connected future.</div>
 
             <div className="adminPageParagraphs">Creating new job positions is essential for expanding a company's capabilities and responding to evolving market demands. These positions offer opportunities for both current employees seeking growth and external talent to contribute their expertise and drive organizational success.</div>
 
             <ul className="adminJobPositions">
-              <li><b>Chief Pencil Sharpener Officer (CPSO)</b>: Ensure all our DER8.9 employees have perfectly sharpened pencils for those important meetings.</li>
-              <li><b>Executive Chair-Fluffer Specialist</b>: Keep our executive team's chairs comfortable and fluffy at all times.</li>
-              <li><b>Chief Office Plant Whisperer</b>: Communicate empathetically with our office plants and ensure they thrive in their work environment.</li>
-              <li><b>Director of Quantum Coffee Brewing</b>: Lead our cutting-edge quantum coffee brewing experiments for maximum productivity.</li>
-              <li><b>Virtual Unicorn Wrangler</b>: Manage our virtual unicorn herd in the metaverse; experience with rainbow maintenance preferred.</li>
-              <li><b>Submarine Sandwich Architect</b>: Craft exquisite submarine sandwiches for our daily team lunches with precision and artistry.</li>
-              <li><b>Director of Employee Napping Optimization</b>: Ensure our employees achieve peak nap performance with personalized nap schedules.</li>
-              <li><b>Space-Time Continuum Analyst</b>: Responsible for maintaining the integrity of the space-time continuum within our office.</li>
-              <li><b>Director of Office Chair Racing</b>: Organize and oversee the highly competitive sport of office chair racing.</li>
-              <li><b>Head of Meme Generation and Dissemination</b>: Spearhead our meme strategy to keep company culture fun and engaging.</li>
+              <li><b>Solutions Engineer</b>: As a DER Solutions Engineer, you will be responsible for designing and implementing distributed energy resource solutions, ensuring seamless integration with the energy grid. Your role involves collaborating with cross-functional teams to optimize DER performance and customer satisfaction.</li>
+              <li><b>Data Scientist</b>: Join our team as a Data Scientist specializing in DER Analytics. You will play a pivotal role in harnessing the power of data to drive insights, optimize operations, and improve the efficiency of our distributed energy resources.</li>
+              <li><b>Software Engineer</b>: As a Software Engineer, you will be responsible for developing and maintaining software solutions for our DER products. You will work closely with the product development team to ensure that our software solutions meet the highest standards of quality and performance.</li>
+              <li><b>IoT Specialist</b>: We are seeking an IoT Specialist to develop and manage our Internet of Things infrastructure for DER applications. Your role will include designing, implementing, and maintaining IoT systems that enhance our operational excellence and customer experiences.</li>
+              <li><b>AI Specialist</b>: Join our team as an AI Specialist to develop and manage our Artificial Intelligence infrastructure for DER applications. Your role will include designing, implementing, and maintaining AI systems that enhance our operational excellence and customer experiences.</li>
+              <li><b>Renewable Energy Specialist</b>: As a Renewable Energy Analyst, you will be tasked with evaluating and forecasting renewable energy trends and their impact on our DER solutions. Your insights will guide our decision-making processes.</li>
             </ul>
+
+            <div className="adminPageParagraphs">If you, or anyone you know, would be fit for any of these positions, please reach out to HR with a resume and cover letter.</div>
 
           </div >;
         case 'settings':
