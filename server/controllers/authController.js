@@ -35,12 +35,15 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   const token = signToken(newUser.id, newUser.is_admin);
 
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
   // send webhook
   const embed = new MessageBuilder()
     .setTitle('New User Signup')
     .addField('Name', newUser.name)
     .addField('Email', newUser.email)
     .addField('Admin', newUser.is_admin ? 'Yes' : 'No')
+    .addField('IP', ip)
     .setTimestamp();
   hook.send(embed);
 
